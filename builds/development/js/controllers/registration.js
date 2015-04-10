@@ -1,5 +1,13 @@
-myApp.controller('RegistrationController', function($scope){
-	$scope.login = function(){
-		alert($scope.user.email)
-	}
+myApp.controller('RegistrationController', function($scope, $location){
+
+	
+
+	$scope.login = function(){	
+		$location.path('/meetings');
+		
+	};
+
+	$scope.register = function(){	
+		$location.path('/meetings');
+	};
 }); 
