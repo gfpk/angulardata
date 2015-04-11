@@ -2,6 +2,9 @@
 	<form name="myform" ng-submit="login()" novalidate>
 		<h1>Hi there!</h1>
 		<p>Log-in to access awesomness!</p>
+
+		<p class="error formerror" ng-show="message">{{message}}</p>
+
 		<input type="email" name="email" placeholder="Email"
 			ng-model="user.email" ng-required="true">
 		<p class="error validationerror" 
