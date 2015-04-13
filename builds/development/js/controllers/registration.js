@@ -5,18 +5,23 @@ myApp.controller('RegistrationController', function($scope, $location, $firebase
 
 
 	$scope.login = function(){
-	Authentication.login($scope.user)
-	.then(function(user){
-		$location.path('/meetings');
-	}).catch(function(error){
-		console.log('Fuck off you filthy hacker!');
-		$scope.message = error.message;
-	});	
-		
-		
+		Authentication.login($scope.user)
+		.then(function(user){
+			$location.path('/meetings');
+		}).catch(function(error){
+			console.log('Fuck off you filthy hacker!');
+			$scope.message = error.message;
+		});		
 	};
 
 	$scope.register = function(){	
-		$location.path('/meetings');
+		Authentication.register($scope.user)
+			.then(function(user){
+				Authentication.login($scope.user);
+				$location.path('/meetings');
+			}).catch(function(error){
+				$scope.message = error.message;
+			});		
+
 	};
 }); 

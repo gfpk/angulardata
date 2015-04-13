@@ -1,7 +1,7 @@
 myApp.controller('MeetingsController',
-  function($scope, $firebase) {
+  function($scope, $firebase, FIREBASE_URL) {
 
- var ref = new Firebase('https://angdatatut.firebaseio.com/meetings');
+ var ref = new Firebase(FIREBASE_URL+'/meetings');
   var meetings = $firebase(ref);
   $scope.meetings = meetings.$asObject();
 
