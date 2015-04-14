@@ -8,12 +8,11 @@ myApp.factory('Authentication', function($firebase, $rootScope, $firebaseAuth, $
 
 			var ref = new Firebase(FIREBASE_URL+"/users/"+authUser.uid); 
 			var user = $firebase(ref).$asObject();
-			console.log(user);
 			$rootScope.currentUser = user;
 
 		}else{
 
-			$rootScope.createUser = '';
+			$rootScope.currentUser = '';
 
 		}
 	});
@@ -49,6 +48,13 @@ myApp.factory('Authentication', function($firebase, $rootScope, $firebaseAuth, $
 				firebaseUsers.$set(regUser.uid, userInfo);
 
 			});
+		},
+		requireAuth: function(){	
+			return auth.$requireAuth();
+		},
+
+		waitForAuth: function(){
+			return auth.$waitForAuth();
 		}
 
 	};

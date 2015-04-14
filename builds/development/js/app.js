@@ -2,6 +2,16 @@ var myApp = angular.module('myApp', ['ngRoute','firebase','appControllers']).con
 
 var appControllers = angular.module('appControllers',['firebase']);
 
+myApp.run(['$rootScope', '$location', function($rootScope, $location){
+	$rootScope.$on('$routeChangeError', function(event, next, previous, error){
+		if(error==='AUTH_REQUIRED'){
+			$rootScope.message = 'Fuck off and log in you filthy bum!';
+			console.log(error);
+			$location.path('/path');
+		}
+	});
+}]);
+
 myApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
 		when('/login', {
@@ -14,7 +24,13 @@ myApp.config(['$routeProvider', function($routeProvider){
 		}).
 		when('/meetings', {
 			templateUrl: 'views/meetings.html',
-			controller : 'MeetingsController'
+			controller : 'MeetingsController',
+			resolve: {
+				currentAuth:function(Authentication){
+
+					return Authentication.requireAuth();
+				}
+			}
 		}).otherwise({
 			redirectTo: '/login'
 		})
